@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class Detail extends StatefulWidget {
   const Detail({Key? key}) : super(key: key);
@@ -154,9 +155,22 @@ class _DetailState extends State<Detail> {
                             fontSize: 20),
                       ),
                       IconButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            PermissionStatus status =
+                                await Permission.location.request();
+                            print(status);
                             Navigator.of(context)
                                 .pushNamed('locations', arguments: data);
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("$status"),
+                              backgroundColor: Colors.black,
+                              behavior: SnackBarBehavior.floating,
+                            ));
+                            if (status == PermissionStatus.granted) {
+                              print("GRANTED....");
+                            } else {
+                              print("DENIED...");
+                            }
                           },
                           icon: Icon(
                             Icons.location_on,

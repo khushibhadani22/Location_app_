@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'Location.dart';
 import 'webDetail.dart';
 
@@ -34,6 +35,17 @@ class _MyAppState extends State<MyApp> {
           "LOCATOR",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await openAppSettings();
+            },
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+          ),
+        ],
         backgroundColor: Colors.black,
         centerTitle: true,
       ),
